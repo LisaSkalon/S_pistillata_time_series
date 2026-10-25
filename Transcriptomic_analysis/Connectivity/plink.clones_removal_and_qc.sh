@@ -37,17 +37,6 @@ plink2 --bfile ../VCF_annotated \
 #--allow-extra-chr \
 #--out missing.noclones
 
-plink2 --bfile VCF_noclones \
-  --allow-extra-chr \
-  --geno 0.2 \
-  --maf 0.05 \
-  --make-bed \
-  --out VCF_geno20
-
-plink2 --bfile VCF_geno20 \
---missing \
---allow-extra-chr \
---out missing.geno20
 
 plink2 --bfile VCF_noclones \
   --allow-extra-chr \
