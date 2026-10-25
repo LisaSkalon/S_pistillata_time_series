@@ -39,18 +39,6 @@ plink2 --bfile VCF_noclones \
 
 plink2 --bfile VCF_nosmiss \
   --allow-extra-chr \
-  --geno 0.2 \
-  --maf 0.05 \
-  --make-bed \
-  --out VCF_nosmiss20
-
-plink2 --bfile VCF_nosmiss20 \
---missing \
---allow-extra-chr \
---out missing.nosmiss20
-
-plink2 --bfile VCF_nosmiss \
-  --allow-extra-chr \
   --geno 0.3 \
   --maf 0.05 \
   --make-bed \
