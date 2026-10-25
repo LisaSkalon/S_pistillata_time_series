@@ -26,21 +26,6 @@ echo "================================"
 source /lustre1/home/mass/eskalon/miniconda/bin/activate bcftools
 
 ### Below you can enter your program job command ###
-plink2 --bfile VCF_nosmiss20 \
-  --allow-extra-chr \
-  --indep-pairwise 50 5 0.2 \
-  --out VCF_nosmiss20_pruned
-
-plink2 --bfile VCF_nosmiss20 \
-  --allow-extra-chr \
-  --extract VCF_nosmiss20_pruned.prune.in \
-  --make-bed \
-  --out VCF_pruned_20
-
-plink2 --bfile VCF_pruned_20 \
---missing \
---allow-extra-chr \
---out missing.nosmiss20.pruned
 
 plink2 --bfile VCF_nosmiss30 \
   --allow-extra-chr \
