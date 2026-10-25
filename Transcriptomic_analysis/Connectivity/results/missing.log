@@ -1,0 +1,24 @@
+PLINK v2.00a2.3LM 64-bit Intel (24 Jan 2020)
+Options in effect:
+  --allow-extra-chr
+  --bfile Spist_vcf_pruned
+  --missing
+  --out missing
+
+Hostname: bee74
+Working directory: /lustre1/home/mass/eskalon/hiba/sp_align/snp/pruned
+Start time: Wed Sep 16 16:00:53 2026
+
+Random number seed: 1789563653
+257094 MiB RAM detected; reserving 128547 MiB for main workspace.
+Using up to 64 threads (change this with --threads).
+165 samples (0 females, 0 males, 165 ambiguous; 165 founders) loaded from
+Spist_vcf_pruned.fam.
+82541 variants loaded from Spist_vcf_pruned.bim.
+Note: No phenotype data present.
+Calculating sample missingness rates... done.
+Calculating allele frequencies... done.
+--missing: Sample missing data report written to missing.smiss .
+--missing: Variant missing data report written to missing.vmiss .
+
+End time: Wed Sep 16 16:00:53 2026

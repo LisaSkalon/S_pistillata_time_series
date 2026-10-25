@@ -1,0 +1,24 @@
+PLINK v2.00a2.3LM 64-bit Intel (24 Jan 2020)
+Options in effect:
+  --allow-extra-chr
+  --bfile Spist_vcf_pruned
+  --make-king-table
+  --out idb
+
+Hostname: bee74
+Working directory: /lustre1/home/mass/eskalon/hiba/sp_align/snp/pruned
+Start time: Wed Sep 16 16:00:53 2026
+
+Random number seed: 1789563653
+257094 MiB RAM detected; reserving 128547 MiB for main workspace.
+Using up to 64 threads (change this with --threads).
+165 samples (0 females, 0 males, 165 ambiguous; 165 founders) loaded from
+Spist_vcf_pruned.fam.
+82541 variants loaded from Spist_vcf_pruned.bim.
+Note: No phenotype data present.
+--make-king-table pass 1/1: Scanning for rare variants... done.
+13935 variants handled by initial scan (68606 remaining).
+--make-king-table: 82541 variants processed.
+Results written to idb.kin0 .
+
+End time: Wed Sep 16 16:00:53 2026
