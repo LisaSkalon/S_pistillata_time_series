@@ -28,20 +28,57 @@ Number of variants passed:
 ```
 # Check the number of PASSED after the first filtering
 zcat "${OUT}.SNPs.vcf.gz" | grep -v '^#' | wc -l
-# 1477466
+# 1433670
 zcat "${OUT}_SNPs_VarScores_filter.qd.vcf.gz" | grep 'PASS' | wc -l
-# 1078283
+# 1175072
 zcat "${OUT}.INDELs.vcf.gz" | grep -v '^#' | wc -l
-# 123034
+# 96273
 zcat "${OUT}_INDELs_VarScores_filter.qd.vcf.gz" | grep 'PASS' | wc -l
-# 91994
+# 95398
 ```
 ```
-# Check number of non-missing genotype DP entries after 2nd-pass filtering
+## Check number of non-missing genotype DP entries after 2nd-pass filtering
 for F in *.GT.DP.txt; do awk 'NR>1' $F; done | wc -l
-# 26999368
+# 84696172
 awk 'NR>1' "${OUT}_SNPs_VarScores_filterPASSED_DPfilterNoCall.GT.DP.txt" | wc -l
-# 4462395
+# 7866554
 awk 'NR>1' "${OUT}_INDELs_VarScores_filterPASSED_DPfilterNoCall.GT.DP.txt" | wc -l
-# 445852
+# 716062
 ```
+### Kinship analysis and visualization
+[kinship.R](https://github.com/talimass/Ocullina_Translocation/blob/main/Transcriptomics/Connectivity/kinship.R) visualises the relatedness among samples.
+
+### Collapse clones
+[plink.filter.0.3.sh](https://github.com/talimass/Ocullina_Translocation/blob/main/Transcriptomics/Connectivity/plink.filter.0.3.sh) takes the [list](https://github.com/talimass/Ocullina_Translocation/blob/main/Transcriptomics/Connectivity/keep.txt) of samples where artificially produced clonal samples (i.e. known fragments of the same colony, since 10m and 25m are pieces of the same corals from the original 5m depth) are collapsed. For each genet, the sample with the lowest missingness score is retained. SNPs were additionally filered for MAF (0.05) and missingness (0.3).
+
+### Filter for missing data 
+[plink.qc.sh](https://github.com/talimass/Ocullina_Translocation/blob/main/Transcriptomics/Connectivity/plink.qc.sh) calculates per-individual and per-SNP missingness statistics and estimates pairwise kinship coefficients using the KING algorithm.
+
+### Filter for linkage disequilibrium
+[bcfplink.sh](bcfplink.sh) performs pruning of SNPs that are strongly genetically linked and extracts these SNPs from the vcf file.
+
+```
+# Variants after pruning
+1078283 variants loaded from Ocupat_vcf_pruned-temporary.pvar.
+Note: No phenotype data present.
+--extract: 92931 variants remaining.
+92931 variants remaining after main filters.
+
+```
+# Final SNP number
+92931 variants loaded from subset0.3.bim.
+Note: No phenotype data present.
+Calculating allele frequencies... done.
+--geno: 59164 variants removed due to missing genotype data.
+11638 variants removed due to allele frequency threshold(s)
+(--maf/--max-maf/--mac/--max-mac).
+22129 variants remaining after main filters.
+```
+
+### ADMIXTURE analysis
+
+
+### Fst analysis
+[Fst.R](https://github.com/talimass/Ocullina_Translocation/blob/main/Transcriptomics/Connectivity/Fst.R) runs Fst analysis, visualises the results via heatmap and a PCA plot. Metadata can be found [here](https://github.com/talimass/Ocullina_Translocation/blob/main/Transcriptomics/Connectivity/pop.csv).
+
+
