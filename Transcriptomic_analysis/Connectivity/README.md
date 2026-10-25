@@ -46,39 +46,23 @@ awk 'NR>1' "${OUT}_INDELs_VarScores_filterPASSED_DPfilterNoCall.GT.DP.txt" | wc 
 # 716062
 ```
 ### Kinship analysis and visualization
-[kinship.R](https://github.com/talimass/Ocullina_Translocation/blob/main/Transcriptomics/Connectivity/kinship.R) visualises the relatedness among samples.
+Before kinship analysis, strongly genetically linked SNPs were pruned with [bcfplink.sh](bcfplink.sh), per-individual and per-SNP missingness statistics was calculated and pairwise kinship coefficients using the KING algorithm was estimated with [plink.qc.sh](plink.qc.sh) (ADD). [kinship.R](kinship.R) visualises the relatedness among samples. 
 
-### Collapse clones
-[plink.filter.0.3.sh](https://github.com/talimass/Ocullina_Translocation/blob/main/Transcriptomics/Connectivity/plink.filter.0.3.sh) takes the [list](https://github.com/talimass/Ocullina_Translocation/blob/main/Transcriptomics/Connectivity/keep.txt) of samples where artificially produced clonal samples (i.e. known fragments of the same colony, since 10m and 25m are pieces of the same corals from the original 5m depth) are collapsed. For each genet, the sample with the lowest missingness score is retained. SNPs were additionally filered for MAF (0.05) and missingness (0.3).
+### Clone and missingness filtering
+[plink.clones_removal_and_qc.sh](plink.clones_removal_and_qc.sh) takes the [list](clones_to_remove.txt) of clonal samples and removes them from the unpruned vcf. Only one representative per genet is left based on the missingness score. [plink.smiss_removal_and_qc.sh](plink.smiss_removal_and_qc.sh) performs additional filtering based on sample missingness score by removing 13 [samples](smiss_to_remove.txt) with the lowest smiss score and additionally filters for MAF (0.05) and missingness (0.3).
 
-### Filter for missing data 
-[plink.qc.sh](https://github.com/talimass/Ocullina_Translocation/blob/main/Transcriptomics/Connectivity/plink.qc.sh) calculates per-individual and per-SNP missingness statistics and estimates pairwise kinship coefficients using the KING algorithm.
+### Pruning
+Finally, [plink.pruning.sh](plink.pruning.sh) performs pruning of SNPs that are strongly genetically linked with `--indep-pairwise 50 5 0.2` and extracts these SNPs from the vcf file.
 
-### Filter for linkage disequilibrium
-[bcfplink.sh](bcfplink.sh) performs pruning of SNPs that are strongly genetically linked and extracts these SNPs from the vcf file.
-
-```
-# Variants after pruning
-1078283 variants loaded from Ocupat_vcf_pruned-temporary.pvar.
-Note: No phenotype data present.
---extract: 92931 variants remaining.
-92931 variants remaining after main filters.
-
-```
 # Final SNP number
-92931 variants loaded from subset0.3.bim.
-Note: No phenotype data present.
-Calculating allele frequencies... done.
---geno: 59164 variants removed due to missing genotype data.
-11638 variants removed due to allele frequency threshold(s)
-(--maf/--max-maf/--mac/--max-mac).
-22129 variants remaining after main filters.
+
+```
 ```
 
 ### ADMIXTURE analysis
-
+[admixture.sh](admixture.sh) runs admixture analysis for different K (1-10) across five different seeds and then compares CV across K. [admixture.R](admixture.R) then creates plots and tables based on [Metadata.csv](Metadata.csv) ADD. 
 
 ### Fst analysis
-[Fst.R](https://github.com/talimass/Ocullina_Translocation/blob/main/Transcriptomics/Connectivity/Fst.R) runs Fst analysis, visualises the results via heatmap and a PCA plot. Metadata can be found [here](https://github.com/talimass/Ocullina_Translocation/blob/main/Transcriptomics/Connectivity/pop.csv).
+[Fst.R](Fst.R) runs Fst analysis, visualises the results via heatmap and a PCA plot.
 
 
