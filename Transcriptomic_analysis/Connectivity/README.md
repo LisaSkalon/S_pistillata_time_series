@@ -46,7 +46,7 @@ awk 'NR>1' "${OUT}_INDELs_VarScores_filterPASSED_DPfilterNoCall.GT.DP.txt" | wc 
 # 716062
 ```
 ### Kinship analysis and visualization
-Before kinship analysis, strongly genetically linked SNPs were pruned with [bcfplink.sh](bcfplink.sh), per-individual and per-SNP missingness statistics was calculated and pairwise kinship coefficients using the KING algorithm was estimated with [plink.qc.sh](plink.qc.sh) (ADD). [kinship.R](kinship.R) visualises the relatedness among samples. 
+Before kinship analysis, strongly genetically linked SNPs were pruned with [bcfplink.sh](bcfplink.sh), per-individual and per-SNP missingness statistics was calculated and pairwise kinship coefficients using the KING algorithm was estimated with [plink.qc.sh](plink.qc.sh). [kinship.R](kinship.R) visualises the relatedness among samples. 
 
 ### Clone and missingness filtering
 [plink.clones_removal_and_qc.sh](plink.clones_removal_and_qc.sh) takes the [list](clones_to_remove.txt) of clonal samples and removes them from the unpruned vcf. Only one representative per genet is left based on the missingness score. [plink.smiss_removal_and_qc.sh](plink.smiss_removal_and_qc.sh) performs additional filtering based on sample missingness score by removing 13 [samples](smiss_to_remove.txt) with the lowest smiss score and additionally filters for MAF (0.05) and missingness (0.3).
@@ -57,10 +57,16 @@ Finally, [plink.pruning.sh](plink.pruning.sh) performs pruning of SNPs that are 
 # Final SNP number
 
 ```
+136 samples (0 females, 0 males, 136 ambiguous; 136 founders) loaded from
+VCF_nosmiss30.fam.
+7214 variants loaded from VCF_nosmiss30.bim.
+Note: No phenotype data present.
+--extract: 2650 variants remaining.
+2650 variants remaining after main filters.
 ```
 
 ### ADMIXTURE analysis
-[admixture.sh](admixture.sh) runs admixture analysis for different K (1-10) across five different seeds and then compares CV across K. [admixture.R](admixture.R) then creates plots and tables based on [Metadata.csv](Metadata.csv) ADD. 
+[admixture.sh](admixture.sh) runs admixture analysis for different K (1-10) across five different seeds and then compares CV across K. [admixture.R](admixture.R) then creates plots and tables based on [Metadata.csv](Metadata.csv). 
 
 ### Fst analysis
 [Fst.R](Fst.R) runs Fst analysis, visualises the results via heatmap and a PCA plot.
